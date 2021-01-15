@@ -198,5 +198,9 @@ public class Day014_2021 {
         System.out.println("result=" + minOps);
         minOps = solution.minOperations(new int[]{3, 1, 20, 2, 3}, 5);
         System.out.println("result=" + minOps);
+        minOps = solution.minOperations(new int[]
+                {3424, 5122, 4312, 1254, 1256, 1256, 2253, 2000, 2000, 5000,
+                        5000, 5000, 5000, 5000, 5000}, 32000);
+        System.out.println("result=" + minOps);
     }
 }
