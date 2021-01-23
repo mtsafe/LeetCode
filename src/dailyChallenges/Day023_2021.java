@@ -6,40 +6,26 @@ import java.util.Collections;
 
 class SolutionDay023 {
     int[][] mat;
-    int iMax;
-    int jMax;
-    int maxOffset;
 
-    private void sortOneDiagonalStartLeft(int iStart) {
-        final int jStart = 0;
+    private void sortOneDiagonal(int iStart, int jStart, int maxOffset) {
         ArrayList<Integer> list = new ArrayList<>();
-        for (int jOffset = 0; jOffset <= Math.min(iMax - iStart, maxOffset); jOffset++)
-            list.add(mat[iStart + jOffset][jStart + jOffset]);
+        for (int offset = 0; offset <= maxOffset; offset++)
+            list.add(mat[iStart + offset][jStart + offset]);
         Collections.sort(list);
-        for (int jOffset = 0; jOffset <= Math.min(iMax - iStart, maxOffset); jOffset++)
-            mat[iStart + jOffset][jStart + jOffset] = list.remove(0);
-    }
-
-    private void sortOneDiagonalStartTop(int jStart) {
-        final int iStart = 0;
-        ArrayList<Integer> list = new ArrayList<>();
-        for (int iOffset = 0; iOffset <= Math.min(jMax - jStart, maxOffset); iOffset++)
-            list.add(mat[iStart + iOffset][jStart + iOffset]);
-        Collections.sort(list);
-        for (int iOffset = 0; iOffset <= Math.min(jMax - jStart, maxOffset); iOffset++)
-            mat[iStart + iOffset][jStart + iOffset] = list.remove(0);
+        for (int offset = 0; offset <= maxOffset; offset++)
+            mat[iStart + offset][jStart + offset] = list.remove(0);
     }
 
     public int[][] diagonalSort(int[][] mat) {
         this.mat = mat;
-        iMax = mat.length - 1;
-        jMax = mat[0].length - 1;
-        maxOffset = Math.min(iMax, jMax);
+        int iMax = mat.length - 1;
+        int jMax = mat[0].length - 1;
+        int maxOffset = Math.min(iMax, jMax);
         for (int i = 1; i < iMax; i++) {
-            sortOneDiagonalStartLeft(i);
+            sortOneDiagonal(i, 0, Math.min(iMax - i, maxOffset));
         }
         for (int j = 0; j < jMax; j++) {
-            sortOneDiagonalStartTop(j);
+            sortOneDiagonal(0, j, Math.min(jMax - j, maxOffset));
         }
         return mat;
     }
