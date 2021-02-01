@@ -1,7 +1,6 @@
 package dailyChallenges;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -124,18 +123,19 @@ class SolutionDay029 {
         hashA = buildLists(new HashMap<>(), root, 0, 0);
 
         HashMap<String, ArrayList<Integer>> hashB;
-        for (String key : Collections.sort(new ArrayList<>(hashA.keySet()))) {
-            Collections.sort(hashA.get(key));
-            int column = decodeColumnFromKey(key);
-            if (!hashB.containsKey(column))
-                hashB.put(column, new ArrayList<>());
-            hashB.get(column).add()
-        }
-        int row = 0;
-        while (row) {
-        }
+//        for (String key : Collections.sort(new ArrayList<>(hashA.keySet()))) {
+//            Collections.sort(hashA.get(key));
+//            int column = decodeColumnFromKey(key);
+//            if (!hashB.containsKey(column))
+//                hashB.put(column, new ArrayList<>());
+//            hashB.get(column).add();
+//        }
+//        int row = 0;
+//        while (row) {
+//        }
         List<List<Integer>> result = new ArrayList<>();
-        result.add(hash.get(column));
+//        result.add(hash.get(column));
+        result.add(new ArrayList<>());
         return result;
     }
 }
