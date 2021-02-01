@@ -1,4 +1,4 @@
-package dailyChallenges;
+package dayChallJan2021;
 
 class SolutionDay019 {
     public boolean isPalindrome(String s, int start, int stop) {

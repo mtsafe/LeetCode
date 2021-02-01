@@ -1,4 +1,4 @@
-package dailyChallenges;
+package dayChallJan2021;
 
 class SolutionDay028 {
     public String getSmallestString(int n, int k) {

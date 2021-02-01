@@ -1,4 +1,4 @@
-package dailyChallenges;
+package dayChallJan2021;
 
 public class Day008_2021 {
     public boolean arrayStringsAreEqual(String[] word1, String[] word2) {

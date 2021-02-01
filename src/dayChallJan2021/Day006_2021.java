@@ -1,4 +1,4 @@
-package dailyChallenges;
+package dayChallJan2021;
 
 // Problem Constraints:
 // 1 <= arr.length <= 1000

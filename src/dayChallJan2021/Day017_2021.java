@@ -1,4 +1,4 @@
-package dailyChallenges;
+package dayChallJan2021;
 
 class SolutionDay017 {
     private int count(int n, char last_character) {

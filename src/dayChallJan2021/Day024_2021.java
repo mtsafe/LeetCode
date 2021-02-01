@@ -1,4 +1,4 @@
-package dailyChallenges;
+package dayChallJan2021;
 
 /**
  * Definition for singly-linked list.

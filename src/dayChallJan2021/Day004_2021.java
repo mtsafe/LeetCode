@@ -1,4 +1,4 @@
-package dailyChallenges;
+package dayChallJan2021;
 
 public class Day004_2021 {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {

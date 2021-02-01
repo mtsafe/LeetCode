@@ -1,4 +1,4 @@
-package dailyChallenges;
+package dayChallJan2021;
 
 public class Day005_2021 {
     public ListNode deleteDuplicates(ListNode head) {

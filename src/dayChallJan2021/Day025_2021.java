@@ -1,4 +1,4 @@
-package dailyChallenges;
+package dayChallJan2021;
 
 class SolutionDay025 {
     public boolean kLengthApart(int[] nums, int k) {

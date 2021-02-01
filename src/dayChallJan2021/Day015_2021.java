@@ -1,4 +1,4 @@
-package dailyChallenges;
+package dayChallJan2021;
 
 class SolutionDay015 {
     public int getMaximumGenerated(int n) {

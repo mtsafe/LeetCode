@@ -1,4 +1,4 @@
-package dailyChallenges;
+package dayChallJan2021;
 
 import java.util.ArrayList;
 import java.util.HashMap;
