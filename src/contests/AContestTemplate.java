@@ -1,4 +1,4 @@
-package dailyChallenges;
+package contests;
 
 class SolutionWC123456789 {
     public int prob(int num) {

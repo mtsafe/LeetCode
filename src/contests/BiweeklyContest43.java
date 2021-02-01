@@ -1,4 +1,4 @@
-package dailyChallenges;
+package contests;
 
 class SolutionBC43 {
     public int totalMoney(int n) {

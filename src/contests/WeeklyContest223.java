@@ -1,4 +1,4 @@
-package dailyChallenges;
+package contests;
 
 import java.util.Arrays;
 
