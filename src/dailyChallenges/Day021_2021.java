@@ -3,9 +3,12 @@ package dailyChallenges;
 import java.util.Arrays;
 
 class SolutionDay021 {
-    public void pushIn(int[] arr, int val) {
-        for (int i = 1; i < arr.length; i++) {
+    public int pushIn(int[] arr, int val, int marker) {
+        for (int i = marker + 1; i < arr.length; i++) {
             if (arr[i-1] > arr[i]) {
+                marker = i - 2;
+                if (marker < 0)
+                    marker = 0;
                 while (i < arr.length) {
                     arr[i-1] = arr[i];
                     i++;
@@ -15,12 +18,15 @@ class SolutionDay021 {
         }
         if (arr[arr.length - 1] > val)
             arr[arr.length - 1] = val;
+//        System.out.println(Arrays.toString(arr));
+        return marker;
     }
 
     public int[] mostCompetitive(int[] nums, int k) {
         int[] result = Arrays.copyOfRange(nums, 0, k);
+        int marker = 0;
         for (int i = k; i < nums.length; i++) {
-            pushIn(result, nums[i]);
+            marker = pushIn(result, nums[i], marker);
         }
         return result;
     }
@@ -36,5 +42,7 @@ public class Day021_2021 {
         System.out.println("[2,3,3,4]=="+Arrays.toString(result));
         result = solution.mostCompetitive(new int[]{1}, 1);
         System.out.println("[1]=="+Arrays.toString(result));
+        result = solution.mostCompetitive(new int[]{71,18,52,29,55,73,24,42,66,8,80,2}, 3);
+        System.out.println("[8,80,2]=="+Arrays.toString(result));
     }
 }
