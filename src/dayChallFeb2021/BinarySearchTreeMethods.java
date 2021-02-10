@@ -61,40 +61,65 @@ public class BinarySearchTreeMethods {
         return root;
     }
 
-    private static final Queue<TreeNode> printBTreeDepthQueue = new LinkedList();
-    private static boolean printBTreeDepthQueueHasChildren() {
-        
+    private static Queue<TreeNode> printBTreeDepthQueue;
+
+    private static boolean isPrintBTreeDepthQueueNull() {
+        for (TreeNode node : printBTreeDepthQueue) {
+            if (node != null)
+                return false;
+        }
+        return true;
     }
-    private static void printBTreeDepth(int depth) {
-        if (depth == 0)
-            System.out.print("[");
 
-        if (printBTreeDepthQueueHasChildren){
-
+    private static boolean printBTreeDepthQueueHasChildren() {
+        for (TreeNode node : printBTreeDepthQueue) {
+            if (node != null &&
+                    (node.left != null || node.right != null))
+                return true;
         }
-        Queue<TreeNode> tmpQueue = new LinkedList();
-        for (TreeNode node1: printBTreeDepthQueue) {
-            tmpQueue.add(node1.left);
-            tmpQueue.add(node1.right);
+        return false;
+    }
+
+    private static void printBTreeDepth() {
+        System.out.print("[");
+        boolean isFirstNode = true;
+        int depth = 0;
+
+        while (!isPrintBTreeDepthQueueNull()) {
+            for (TreeNode node : printBTreeDepthQueue) {
+                if (isFirstNode)
+                    isFirstNode = false;
+                else
+                    System.out.print(",");
+                if (node == null)
+                    System.out.print("null");
+                else
+                    System.out.print(node.val);
+            }
+
+            Queue<TreeNode> tmpQueue = new LinkedList<>();
+            if (printBTreeDepthQueueHasChildren()) {
+                for (TreeNode node : printBTreeDepthQueue) {
+                    if (node == null) {
+                        tmpQueue.add(null);
+                        tmpQueue.add(null);
+                    } else {
+                        tmpQueue.add(node.left);
+                        tmpQueue.add(node.right);
+                    }
+                }
+            }
+            printBTreeDepthQueue = tmpQueue;
+            if (depth++ > 8)
+                return;
         }
 
-        if (node != null) {
-            if (depth != 0)
-                System.out.print(",");
-            System.out.print(node.val);
-            if (node.left != null)
-                printBTreeDepth(node.left, depth + 1);
-            if (node.right != null)
-                printBTreeDepth(node.right, depth + 1);
-        }
-
-
-        if (depth == 0)
-            System.out.print("]");
+        System.out.print("]");
     }
 
     static void printBTree(TreeNode node) {
+        printBTreeDepthQueue = new LinkedList<>();
         printBTreeDepthQueue.add(node);
-        printBTreeDepth(0);
+        printBTreeDepth();
     }
 }
