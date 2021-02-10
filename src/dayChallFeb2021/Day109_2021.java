@@ -20,12 +20,20 @@ class SolutionDay109 {
         // Trivial case
         if (root == null)
             return 0;
-        System.out.println("convertBSTSum(" + root.val + ", " + rightSum + ")");
+        // Leaf case
         if (root.left == null && root.right == null) {
             root.val += rightSum;
             return root.val;
         }
-        root.val += convertBSTSum(root.right, rightSum);
+        // Right Child case
+        if (root.right == null) {
+            root.val += rightSum;
+        } else {
+            root.val += convertBSTSum(root.right, rightSum);
+        }
+        // Left Child case
+        if (root.left == null)
+            return root.val;
         return convertBSTSum(root.left, root.val);
     }
 
@@ -85,6 +93,30 @@ public class Day109_2021 {
         System.out.println();
 
         // Test 3
+        input = new TreeNode(2);
+        input.right = new TreeNode(3);
+        input.right.right = new TreeNode(4);
+        System.out.print("input == ");
+        BinarySearchTreeMethods.printBTree(input);
+        System.out.println();
+        result = solution.convertBST(input);
+        System.out.print("[2,null,3,null,null,null,4] => [9,null,7,null,null,null,4] == ");
+        BinarySearchTreeMethods.printBTree(result);
+        System.out.println();
+
+        // Test 4
+        input = new TreeNode(2);
+        input.left = new TreeNode(3);
+        input.left.left = new TreeNode(4);
+        System.out.print("input == ");
+        BinarySearchTreeMethods.printBTree(input);
+        System.out.println();
+        result = solution.convertBST(input);
+        System.out.print("[2,3,null,4] => [2,5,null,9] == ");
+        BinarySearchTreeMethods.printBTree(result);
+        System.out.println();
+
+        // Test 5
         input = new TreeNode(2);
         input.left = new TreeNode(1);
         input.right = new TreeNode(3);
