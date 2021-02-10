@@ -85,6 +85,11 @@ public class BinarySearchTreeMethods {
         boolean isFirstNode = true;
         int depth = 0;
 
+//  Code to remove trailing nulls from the printed array.
+//        if (!printBTreeDepthQueueHasChildren()) {
+//
+//        }
+
         while (!isPrintBTreeDepthQueueNull()) {
             for (TreeNode node : printBTreeDepthQueue) {
                 if (isFirstNode)

@@ -59,5 +59,13 @@ class BinarySearchTreeMethodsTest {
         System.out.print("[1,null,7] == ");
         BinarySearchTreeMethods.printBTree(input);
         System.out.println();
+
+        // Part 6
+        input = new TreeNode(1);
+        input.right = new TreeNode(7);
+        input.right.left = new TreeNode(13);
+        System.out.print("[1,null,7,null,null,13] == ");
+        BinarySearchTreeMethods.printBTree(input);
+        System.out.println();
     }
 }
