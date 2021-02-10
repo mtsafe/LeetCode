@@ -1,5 +1,8 @@
 package dayChallFeb2021;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * This is a class of methods for working with a binary search tree.
  */
@@ -56,5 +59,42 @@ public class BinarySearchTreeMethods {
         if (Math.abs(root.val - val) > Math.abs(answerChild.val - val))
             return answerChild;
         return root;
+    }
+
+    private static final Queue<TreeNode> printBTreeDepthQueue = new LinkedList();
+    private static boolean printBTreeDepthQueueHasChildren() {
+        
+    }
+    private static void printBTreeDepth(int depth) {
+        if (depth == 0)
+            System.out.print("[");
+
+        if (printBTreeDepthQueueHasChildren){
+
+        }
+        Queue<TreeNode> tmpQueue = new LinkedList();
+        for (TreeNode node1: printBTreeDepthQueue) {
+            tmpQueue.add(node1.left);
+            tmpQueue.add(node1.right);
+        }
+
+        if (node != null) {
+            if (depth != 0)
+                System.out.print(",");
+            System.out.print(node.val);
+            if (node.left != null)
+                printBTreeDepth(node.left, depth + 1);
+            if (node.right != null)
+                printBTreeDepth(node.right, depth + 1);
+        }
+
+
+        if (depth == 0)
+            System.out.print("]");
+    }
+
+    static void printBTree(TreeNode node) {
+        printBTreeDepthQueue.add(node);
+        printBTreeDepth(0);
     }
 }
