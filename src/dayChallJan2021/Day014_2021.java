@@ -1,7 +1,7 @@
 package dayChallJan2021;
 
-class SolutionDay014 {
-    class doubleLink {
+class SolutionDay014_FirstTry {
+    static class doubleLink {
         int val;
         doubleLink left = null;
         doubleLink right = null;
@@ -11,7 +11,7 @@ class SolutionDay014 {
         }
     }
 
-    class stackTwo {
+    static class stackTwo {
         doubleLink farLeft;
         doubleLink farRight;
         int size;
@@ -181,26 +181,138 @@ class SolutionDay014 {
     }
 }
 
+class SolutionDay014 {
+    private int[] numsA;
+    private int first, last;
+
+    private int calcSum() {
+        int sum = 0;
+        for (int i = 0; i <= first; i++) {
+            sum += numsA[i];
+        }
+        for (int i = numsA.length - 1; i >= last; i--) {
+            sum += numsA[i];
+        }
+        return sum;
+    }
+
+    public int minOperations(int[] nums, int x) {
+        System.out.println("x=" + x);
+        int BigIndx = nums.length;
+        int minOps = BigIndx;
+
+        numsA = nums;
+        int sumLeft = 0;
+        for (first = 0; first < nums.length && x > sumLeft; first++) {
+            sumLeft += nums[first];
+        }
+        if (x > sumLeft)
+            return -1;
+        else if (x == sumLeft) {
+            minOps = Math.min(minOps, first--);
+            sumLeft -= nums[first];
+        }
+
+        int sumRight = 0;
+        for (last = nums.length - 1; last >= 0 && x > sumRight; last--) {
+            sumRight += nums[last];
+        }
+        if (x > sumRight)
+            return -1;
+        else if (x == sumRight) {
+            minOps = Math.min(minOps, nums.length - 1 - last);
+            sumRight -= nums[last];
+        }
+
+        for (int firstLeft = first - 1; firstLeft >= 0; firstLeft--) {
+            sumRight = 0;
+            for (int lastRight = nums.length - 1; lastRight > last; lastRight--) {
+                sumRight += nums[lastRight];
+                if (x < sumLeft + sumRight)
+                    break;
+                else if (x == sumLeft + sumRight) {
+                    /////////////////////////////////////////////////
+                    minOps = Math.min(minOps, minOps);
+                }
+            }
+            sumLeft -= nums[firstLeft];
+        }
+        return minOps;
+    }
+}
+
 public class Day014_2021 {
     public static void main(String[] args) {
         SolutionDay014 solution = new SolutionDay014();
+        int[] inputA;
         int minOps;
 
+        // Test
+        inputA = new int[]{1, 1, 1, 4, 4, 4, 4, 4, 4, 1, 1, 1};
+        minOps = solution.minOperations(inputA, 6);
+        System.out.println("6 == " + minOps);
+
+        // Example 1
         minOps = solution.minOperations(new int[]{1, 1, 4, 2, 3}, 5);
-        System.out.println("result=" + minOps);
+        System.out.println("2 == " + minOps);
+
+        // Example 2
         minOps = solution.minOperations(new int[]{5, 6, 7, 8, 9}, 4);
-        System.out.println("result=" + minOps);
+        System.out.println("-1 == " + minOps);
+
+        // Example 3
         minOps = solution.minOperations(new int[]{3, 2, 20, 1, 1, 3}, 10);
-        System.out.println("result=" + minOps);
+        System.out.println("5 == " + minOps);
+
         minOps = solution.minOperations(new int[]{1, 1, 3, 2, 5}, 5);
-        System.out.println("result=" + minOps);
+        System.out.println("1 == " + minOps);
         minOps = solution.minOperations(new int[]{1, 1}, 3);
-        System.out.println("result=" + minOps);
+        System.out.println("-1 == " + minOps);
         minOps = solution.minOperations(new int[]{3, 1, 20, 2, 3}, 5);
-        System.out.println("result=" + minOps);
+        System.out.println("2 == " + minOps);
         minOps = solution.minOperations(new int[]
                 {3424, 5122, 4312, 1254, 1256, 1256, 2253, 2000, 2000, 5000,
                         5000, 5000, 5000, 5000, 5000}, 32000);
-        System.out.println("result=" + minOps);
+        System.out.println("7 == " + minOps);
+
+        // Hidden test
+        inputA = new int[]{6016, 5483, 541, 4325, 8149, 3515, 7865, 2209, 9623, 9763, 4052, 6540, 2123, 2074, 765, 7520, 4941, 5290, 5868, 6150, 6006, 6077, 2856, 7826, 9119};
+        minOps = solution.minOperations(inputA, 31841);
+        System.out.println("6 == " + minOps);
+
+
+        SolutionDay014_FirstTry solution1st = new SolutionDay014_FirstTry();
+        // Test
+        inputA = new int[]{1, 1, 1, 4, 4, 4, 4, 4, 4, 1, 1, 1};
+        minOps = solution1st.minOperations(inputA, 6);
+        System.out.println("6 == " + minOps);
+
+        // Example 1
+        minOps = solution1st.minOperations(new int[]{1, 1, 4, 2, 3}, 5);
+        System.out.println("2 == " + minOps);
+
+        // Example 2
+        minOps = solution1st.minOperations(new int[]{5, 6, 7, 8, 9}, 4);
+        System.out.println("-1 == " + minOps);
+
+        // Example 3
+        minOps = solution1st.minOperations(new int[]{3, 2, 20, 1, 1, 3}, 10);
+        System.out.println("5 == " + minOps);
+
+        minOps = solution1st.minOperations(new int[]{1, 1, 3, 2, 5}, 5);
+        System.out.println("1 == " + minOps);
+        minOps = solution1st.minOperations(new int[]{1, 1}, 3);
+        System.out.println("-1 == " + minOps);
+        minOps = solution1st.minOperations(new int[]{3, 1, 20, 2, 3}, 5);
+        System.out.println("2 == " + minOps);
+        minOps = solution1st.minOperations(new int[]
+                {3424, 5122, 4312, 1254, 1256, 1256, 2253, 2000, 2000, 5000,
+                        5000, 5000, 5000, 5000, 5000}, 32000);
+        System.out.println("7 == " + minOps);
+
+        // Hidden test
+        inputA = new int[]{6016, 5483, 541, 4325, 8149, 3515, 7865, 2209, 9623, 9763, 4052, 6540, 2123, 2074, 765, 7520, 4941, 5290, 5868, 6150, 6006, 6077, 2856, 7826, 9119};
+        minOps = solution1st.minOperations(inputA, 31841);
+        System.out.println("6 == " + minOps);
     }
 }
