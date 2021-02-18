@@ -18,20 +18,8 @@ class SolutionDay117 {
             if (height[start] == height[end]) {
                 start++;
                 end--;
-                try {
-                    Thread.sleep(1000);
-                } catch (Exception e) {
-                }
-                System.out.print(height[start] + " <= " + height[end]);
-                System.out.print(" working bothSide " + start + " : "+end + " : ");
                 if (start >= end)
                     break;
-                System.out.print("!!" + (calcArea(height, start, rightSide) >
-                        calcArea(height, leftSide, rightSide)) + " ");
-                System.out.print(calcArea(height, start, rightSide) + " > " +
-                        calcArea(height, leftSide, rightSide) + " !! ");
-                System.out.println("start " + start + "; rightSide " + rightSide +
-                        "; leftSide " + leftSide + "; rightSide " + rightSide);
                 if (calcArea(height, start, rightSide) >
                         calcArea(height, leftSide, rightSide)) {
                     leftSide = start;
@@ -45,20 +33,10 @@ class SolutionDay117 {
                     leftSide = start;
                     rightSide = end;
                 }
-            } else if (height[leftSide] > height[rightSide]) {
+            } else if (height[start] > height[end]) {
                 end--;
-                try {
-                    Thread.sleep(1000);
-                } catch (Exception e) {
-                }
-                System.out.print(height[start] + " <= " + height[end]);
-                System.out.print(" working rightSide " + end + " : ");
                 if (start >= end)
                     break;
-                System.out.print("!!" + (calcArea(height, leftSide, end) >
-                        calcArea(height, leftSide, rightSide)) + "!! ");
-                System.out.println("leftSide " + leftSide + "; end " + end +
-                        "; leftSide " + leftSide + "; rightSide " + rightSide);
                 if (calcArea(height, leftSide, end) >
                         calcArea(height, leftSide, rightSide)) {
                     rightSide = end;
@@ -70,20 +48,8 @@ class SolutionDay117 {
                 }
             } else {
                 start++;
-                try {
-                    Thread.sleep(1000);
-                } catch (Exception e) {
-                }
-                System.out.print(height[start] + " <= " + height[end]);
-                System.out.print(" working leftSide " + start + " : ");
                 if (start >= end)
                     break;
-                System.out.print("!!" + (calcArea(height, start, rightSide) >
-                        calcArea(height, leftSide, rightSide)) + " ");
-                System.out.print(calcArea(height, start, rightSide) + " > " +
-                        calcArea(height, leftSide, rightSide) + " !! ");
-                System.out.println("start " + start + "; rightSide " + rightSide +
-                        "; leftSide " + leftSide + "; rightSide " + rightSide);
                 if (calcArea(height, start, rightSide) >
                         calcArea(height, leftSide, rightSide)) {
                     leftSide = start;
@@ -95,7 +61,6 @@ class SolutionDay117 {
                 }
             }
         }
-        System.out.println("L=" + leftSide + " : " + "R=" + rightSide);
         return calcArea(height, leftSide, rightSide);
     }
 }
