@@ -1,38 +1,102 @@
 package dayChallFeb2021;
 
+import java.util.Arrays;
+
 class SolutionDay117 {
+    private int calcArea(int[] height, int leftSide, int rightSide) {
+        if (height == null)
+            return 0;
+        return (rightSide - leftSide) * Math.min(height[rightSide], height[leftSide]);
+    }
+
     public int maxArea(int[] height) {
         if (height == null)
             return 0;
         int leftSide = 0, rightSide = height.length - 1;
         int start = leftSide, end = rightSide;
         while (start < end) {
-            if (height[leftSide] > height[rightSide]) {
-                while (height[end] < height[rightSide] &&
-                        start < end) {
-                    end--;
+            if (height[start] == height[end]) {
+                start++;
+                end--;
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
                 }
+                System.out.print(height[start] + " <= " + height[end]);
+                System.out.print(" working bothSide " + start + " : "+end + " : ");
                 if (start >= end)
                     break;
-                if ((end - leftSide) * Math.min(height[end], height[leftSide]) >
-                        (rightSide - leftSide) * Math.min(height[rightSide], height[leftSide])) {
+                System.out.print("!!" + (calcArea(height, start, rightSide) >
+                        calcArea(height, leftSide, rightSide)) + " ");
+                System.out.print(calcArea(height, start, rightSide) + " > " +
+                        calcArea(height, leftSide, rightSide) + " !! ");
+                System.out.println("start " + start + "; rightSide " + rightSide +
+                        "; leftSide " + leftSide + "; rightSide " + rightSide);
+                if (calcArea(height, start, rightSide) >
+                        calcArea(height, leftSide, rightSide)) {
+                    leftSide = start;
+                }
+                if (calcArea(height, leftSide, end) >
+                        calcArea(height, leftSide, rightSide)) {
+                    rightSide = end;
+                }
+                if (calcArea(height, start, end) >
+                        calcArea(height, leftSide, rightSide)) {
+                    leftSide = start;
+                    rightSide = end;
+                }
+            } else if (height[leftSide] > height[rightSide]) {
+                end--;
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                }
+                System.out.print(height[start] + " <= " + height[end]);
+                System.out.print(" working rightSide " + end + " : ");
+                if (start >= end)
+                    break;
+                System.out.print("!!" + (calcArea(height, leftSide, end) >
+                        calcArea(height, leftSide, rightSide)) + "!! ");
+                System.out.println("leftSide " + leftSide + "; end " + end +
+                        "; leftSide " + leftSide + "; rightSide " + rightSide);
+                if (calcArea(height, leftSide, end) >
+                        calcArea(height, leftSide, rightSide)) {
+                    rightSide = end;
+                }
+                if (calcArea(height, start, end) >
+                        calcArea(height, leftSide, rightSide)) {
+                    leftSide = start;
                     rightSide = end;
                 }
             } else {
-                while (height[start] >= height[leftSide] &&
-                        start < end) {
-                    start++;
+                start++;
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
                 }
+                System.out.print(height[start] + " <= " + height[end]);
+                System.out.print(" working leftSide " + start + " : ");
                 if (start >= end)
                     break;
-                if ((rightSide - start) * Math.min(height[start], height[rightSide]) >
-                        (rightSide - leftSide) * Math.min(height[rightSide], height[leftSide])) {
+                System.out.print("!!" + (calcArea(height, start, rightSide) >
+                        calcArea(height, leftSide, rightSide)) + " ");
+                System.out.print(calcArea(height, start, rightSide) + " > " +
+                        calcArea(height, leftSide, rightSide) + " !! ");
+                System.out.println("start " + start + "; rightSide " + rightSide +
+                        "; leftSide " + leftSide + "; rightSide " + rightSide);
+                if (calcArea(height, start, rightSide) >
+                        calcArea(height, leftSide, rightSide)) {
                     leftSide = start;
+                }
+                if (calcArea(height, start, end) >
+                        calcArea(height, leftSide, rightSide)) {
+                    leftSide = start;
+                    rightSide = end;
                 }
             }
         }
-        System.out.println("R=" + rightSide + " : " + "L=" + leftSide);
-        return (rightSide - leftSide) * Math.min(height[rightSide], height[leftSide]);
+        System.out.println("L=" + leftSide + " : " + "R=" + rightSide);
+        return calcArea(height, leftSide, rightSide);
     }
 }
 
@@ -45,41 +109,61 @@ public class Day117_2021 {
         // Trivial 1
         input = new int[]{1, 1};
         result = solution.maxArea(input);
+        System.out.print("Trivial 1: " + Arrays.toString(input) + " :: ");
         System.out.println("1 == " + result);
 
         // Trivial 2
         input = new int[]{1, 10, 10};
         result = solution.maxArea(input);
-        System.out.println("100 == " + result);
+        System.out.print("Trivial 2: " + Arrays.toString(input) + " :: ");
+        System.out.println("10 == " + result);
 
         // Trivial 3
         input = new int[]{10, 10, 1};
         result = solution.maxArea(input);
-        System.out.println("100 == " + result);
+        System.out.print("Trivial 3: " + Arrays.toString(input) + " :: ");
+        System.out.println("10 == " + result);
 
         // Trivial 4
         input = new int[]{1, 10, 10, 1};
         result = solution.maxArea(input);
-        System.out.println("100 == " + result);
+        System.out.print("Trivial 4: " + Arrays.toString(input) + " :: ");
+        System.out.println("10 == " + result);
 
         // Example 1
         input = new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7};
         result = solution.maxArea(input);
+        System.out.print("Example 1: " + Arrays.toString(input) + " :: ");
         System.out.println("49 == " + result);
 
         // Example 2
         input = new int[]{1, 1};
         result = solution.maxArea(input);
+        System.out.print("Example 2: " + Arrays.toString(input) + " :: ");
         System.out.println("1 == " + result);
 
         // Example 3
         input = new int[]{4, 3, 2, 1, 4};
         result = solution.maxArea(input);
+        System.out.print("Example 3: " + Arrays.toString(input) + " :: ");
         System.out.println("16 == " + result);
 
         // Example 4
         input = new int[]{1, 2, 1};
         result = solution.maxArea(input);
+        System.out.print("Example 4: " + Arrays.toString(input) + " :: ");
         System.out.println("2 == " + result);
+
+        // Testcase 1
+        input = new int[]{1, 2, 4, 3};
+        result = solution.maxArea(input);
+        System.out.print("Testcase 1: " + Arrays.toString(input) + " :: ");
+        System.out.println("4 == " + result);
+
+        // Testcase 2
+        input = new int[]{2,3,4,5,18,17,6};
+        result = solution.maxArea(input);
+        System.out.print("Testcase 2: " + Arrays.toString(input) + " :: ");
+        System.out.println("17 == " + result);
     }
 }
