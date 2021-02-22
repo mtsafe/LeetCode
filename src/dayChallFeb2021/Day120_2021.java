@@ -4,19 +4,19 @@ import java.util.HashMap;
 
 class SolutionDay120 {
     public int romanToInt(String s) {
-        HashMap<String,Integer> hash = new HashMap<>();
-        hash.put("I", 1);
-        hash.put("V", 5);
-        hash.put("X", 10);
-        hash.put("L", 50);
-        hash.put("C", 100);
-        hash.put("D", 500);
-        hash.put("M", 1000);
+        HashMap<Character,Integer> hash = new HashMap<>();
+        hash.put('I', 1);
+        hash.put('V', 5);
+        hash.put('X', 10);
+        hash.put('L', 50);
+        hash.put('C', 100);
+        hash.put('D', 500);
+        hash.put('M', 1000);
         int maxNum = 0;
         int sum = 0, val;
         char[] roman = s.toCharArray();
         for (int i = s.length() - 1; i >= 0; i--) {
-            val = hash.get(String.valueOf(roman[i]));
+            val = hash.get(roman[i]);
             if (val >= maxNum) {
                 maxNum = val;
                 sum += val;
