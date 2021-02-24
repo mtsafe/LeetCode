@@ -102,7 +102,11 @@ class SolutionDay009 {
         //  Trivial check
         if (wordList.size() == 0 || !wordList.contains(endWord))
             return 0;
-        wordList.remove(endWord);
+        System.out.println("endWord: "+endWord);
+        System.out.println("wordList: "+wordList);
+        System.out.println("contains: "+wordList.contains(endWord));
+        System.out.println("indexOf: "+wordList.indexOf(endWord));
+        wordList.remove(0);
 
         // Trivial check
         if (beginWord.equals(endWord))
