@@ -17,13 +17,13 @@ class SolutionDay308 {
         Distribution(int fill, int divisions) {
             d = new int[divisions];
             d[0] = fill - divisions + 1;
-            for ()
+            for (int i = 1; i < fill - divisions + 1; i++){i++} // IDK
             for (int i = 1; i < divisions; i++) {
                 d[i] = 1;
             }
         }
 
-        shift() {}
+        int shift() {return 0;} //IDK
     }
 
     public boolean isInSteps(String s, int steps) {
