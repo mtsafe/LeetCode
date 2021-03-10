@@ -16,9 +16,10 @@ class SolutionDay309 {
     public TreeNode addOneRowRecurse(TreeNode parent, TreeNode child, int v, int d, boolean left) {
         if (parent == null) return null;
         if (d != 1) {
-            if (child == null) return parent;
-            addOneRowRecurse(child, child.left, v, d - 1, true);
-            addOneRowRecurse(child, child.right, v, d - 1, false);
+            if (child != null) {
+                addOneRowRecurse(child, child.left, v, d - 1, true);
+                addOneRowRecurse(child, child.right, v, d - 1, false);
+            }
             return parent;
         }
         if (left)
