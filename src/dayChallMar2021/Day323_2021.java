@@ -5,13 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 
 class SolutionDay323 {
-    class stacker {
-        long[] arr;
+    static class Stacker {
+        static long[] arr;
+        static int maxStacker;
 
-        stacker(int max) {
-            arr = new long[max];
+        static void extendStacker(int max) {
+            if (maxStacker >= max) return;
+            long[] tmp = new long[max];
+            System.arraycopy(arr, 0, tmp, 0, maxStacker);
+            maxStacker = max;
+            arr = tmp;
         }
-        long level(int n) {
+
+        static long level(int n) {
             if (n == 0) return 0;
             if (arr[n] != 0) return arr[n];
             for (int i = 1; i <= n; i++) {
@@ -52,11 +58,13 @@ class SolutionDay323 {
     }
 
     private long permute3(int a) {
-        return result;
+        return Stacker.level(a);
     }
 
     public int threeSumMulti(int[] arr, int target) {
         if (arr == null) return 0;
+        if (arr.length > Stacker.maxStacker)
+            Stacker.extendStacker(arr.length);
         long tupleCnt = 0;
         HashMap<Integer, Integer> hash = makeHashMap(arr, target);
         List<Integer> list = new ArrayList<>(hash.keySet());
@@ -65,14 +73,17 @@ class SolutionDay323 {
         for (int i = 0; i < list.size() - 2; i++) {
             iTh = list.get(i);
             // case: suppose j == i
+            // case: suppose k == j == i
+                // permute3(hash.get(iTh));
             for (int j = i + 1; j < list.size() - 1; j++) {
                 jTh = list.get(j);
                 kTh = target - iTh - jTh;
                 if (kTh < jTh) {
                     break;
                 } else if (kTh == jTh) {
+                    tupleCnt += combine1And2(hash.get(iTh), hash.get(jTh));
                 } else {
-                    tupleCnt += combine(hash.get(i), hash.get(j), hash.get(k));
+                    tupleCnt += combine(hash.get(iTh), hash.get(jTh), hash.get(kTh));
                 }
             }
         }
