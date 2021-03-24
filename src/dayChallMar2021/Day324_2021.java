@@ -2,22 +2,11 @@ package dayChallMar2021;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 class SolutionDay324 {
     public int[] advantageCount(int[] A, int[] B) {
-        HashMap<Integer, List<Integer>> hashB = new HashMap<>();
-        List<Integer> tmpList;
-        for (int i = 0; i < B.length; i ++) {
-            if (hashB.containsKey(B[i])) {
-                hashB.get(B[i]).add(i);
-            } else {
-                tmpList = new ArrayList<>();
-                tmpList.add(i);
-                hashB.put(B[i], tmpList);
-            }
-        }
+        if (A == null || B == null) return null;
         List<Integer> listA = new ArrayList<>();
         List<Integer> listB = new ArrayList<>();
         for (int i = 0; i<A.length; i++) {
@@ -25,12 +14,23 @@ class SolutionDay324 {
             listB.add(B[i]);
         }
         listA.sort(Integer::compareTo);
-        listB.sort(Integer::compareTo);
-        for (int i = 0; i<A.length; i++) {
-            
+        List<Integer> listR = new ArrayList<>();
+        int nextB;
+        for (int j = 0; j<B.length; j++) {
+            nextB = listB.get(j);
+            for (int i = 0; i<listA.size(); i++) {
+                if (listA.get(i) > nextB) {
+                    listR.add(listA.remove(i));
+                    break;
+                }
+            }
+            if (listR.size() == j)
+                listR.add(listA.remove(0));
         }
-
-        return null;
+        int[] result = new int[listR.size()];
+        for (int i = 0; i < listR.size(); i++)
+            result[i] = listR.get(i);
+        return result;
     }
 }
 
