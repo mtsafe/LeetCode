@@ -14,9 +14,9 @@ class SolutionDay407 {
     }
 
     public boolean halvesAreAlike(String s) {
-        String s1 = s.substring(0, s.length() / 2 - 1);
+        String s1 = s.substring(0, s.length() / 2);
         String s2 = s.substring(s.length() / 2);
-        String regex = "\\[aeiouAEIOU]\\";
+        String regex = "[aeiouAEIOU]";
         Pattern p = Pattern.compile(regex);
         return matchCount(p, s1) == matchCount(p,s2);
     }
