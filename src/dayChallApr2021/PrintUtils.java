@@ -51,4 +51,18 @@ public class PrintUtils {
         }
         System.out.print("]");
     }
+
+    public static void printListNodeList(ListNode list) {
+        if (list == null) return;
+        System.out.print("[");
+        ListNode curr = list;
+        while (curr != null) {
+            if (curr.next == null)
+                System.out.print(curr.val);
+            else
+                System.out.print(curr.val + ",");
+            curr = curr.next;
+        }
+        System.out.print("]");
+    }
 }
