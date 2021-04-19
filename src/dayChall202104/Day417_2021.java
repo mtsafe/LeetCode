@@ -54,45 +54,29 @@ class SolutionDay417 {
     }
 
 
-    int[][][][] memo;
-    boolean[][][][] memoized;
+    int[][] memo;
 
     void initializeMemo(int rows, int cols) {
-        memo = new int[rows][cols][rows][cols];
-        memoized = new boolean[rows][cols][rows][cols];
+        // prefix sum the rows
+        memo = new int[rows][cols];
         for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                for (int a = 0; a < cols; a++) {
-                    for (int b = 0; b < cols; b++) {
-                        memoized[i][j][a][b] = false;
-                    }
-                }
+            memo[i][0] = globalMatrix[i][0];
+        }
+        for (int i = 0; i < rows; i++) {
+            for (int j = 1; j < cols; j++) {
+                memo[i][j] = memo[i][j - 1] + globalMatrix[i][j];
             }
         }
     }
 
-    void memoizeRow(int row, int colFirst, int colLast) {
-        if (colFirst < colLast) {
-            if (!memoized[row][colFirst][row][colLast - 1])
-                memoizeRow(row, colFirst, colLast - 1);
-            memo[row][colFirst][row][colLast] =
-                    memo[row][colFirst][row][colLast - 1] +
-                            globalMatrix[row][colLast];
-        } else if (colFirst == colLast) {
-            memo[row][colFirst][row][colLast] = globalMatrix[row][colLast];
-        } else {
-            memo[row][colFirst][row][colLast] = 0;
-        }
-        memoized[row][colFirst][row][colLast] = true;
-    }
-
     int calcSum(int i, int j, int a, int b) {
         int sum = 0;
-        for (int m = i; m <= a; m++) {
-            if (!memoized[m][j][m][b])
-                memoizeRow(m, j, b);
-            sum += memo[m][j][m][b];
-        }
+        if (j == 0)
+            for (int m = i; m <= a; m++)
+                sum += memo[m][b];
+        else
+            for (int m = i; m <= a; m++)
+                sum += memo[m][b] - memo[m][j - 1];
         return sum;
     }
 
@@ -100,15 +84,15 @@ class SolutionDay417 {
         if (matrix == null) return 0;
         globalMatrix = matrix;
         int rows = matrix.length, cols = matrix[0].length;
-        initializeMemo_2ndTry(rows, cols);
+//        initializeMemo_2ndTry(rows,cols);
+        initializeMemo(rows, cols);
         int bullsEyes = 0;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 for (int a = i; a < rows; a++) {
                     for (int b = j; b < cols; b++) {
-//                        System.out.println("calcSum("+i+", "+j+", "+a+", "+b+") == "+
-//                                calcSum(i, j, a, b));
-                        if (calcSum_2ndTry(i, j, a, b) == target) bullsEyes++;
+//                        if (calcSum_2ndTry(i, j, a, b) == target) bullsEyes++;
+                        if (calcSum(i, j, a, b) == target) bullsEyes++;
                     }
                 }
             }
@@ -126,6 +110,18 @@ public class Day417_2021 {
         long theTime0, theTime1;
 
         theTime0 = System.currentTimeMillis();
+        // Trivial 1
+        inputM = new int[][]{{0, 1}};
+        inputT = 0;
+        result = solution.numSubmatrixSumTarget(inputM, inputT);
+        System.out.println("1 == " + result);
+
+        // Trivial 2
+        inputM = new int[][]{{0, 1}};
+        inputT = 1;
+        result = solution.numSubmatrixSumTarget(inputM, inputT);
+        System.out.println("2 == " + result);
+
         // Example 1
         inputM = new int[][]{{0, 1, 0}, {1, 1, 1}, {0, 1, 0}};
         inputT = 0;
@@ -144,18 +140,47 @@ public class Day417_2021 {
         result = solution.numSubmatrixSumTarget(inputM, inputT);
         System.out.println("0 == " + result);
 
-        // Big Test 1
-        inputM = new int[99][99];
+        // Test Case 1
+        inputM = new int[][]{{0, 1, 1, 1, 0, 1}, {0, 0, 0, 0, 0, 1}, {0, 0, 1, 0, 0, 1},
+                {1, 1, 0, 1, 1, 0}, {1, 0, 0, 1, 0, 0}};
         inputT = 0;
-        for (int i = 0; i < 99; i++) {
-            for (int j = 0; j < 33; j++) {
-                inputM[i][3 * j] = -1;
-                inputM[i][3 * j + 1] = 0;
-                inputM[i][3 * j + 2] = 1;
+        result = solution.numSubmatrixSumTarget(inputM, inputT);
+        System.out.println("43 == " + result);
+
+        // Test Case 2
+        inputM = new int[][]{
+                {0, 1, 0, 0, 1},
+                {0, 0, 1, 1, 1},
+                {1, 1, 1, 0, 1},
+                {1, 1, 0, 1, 1},
+                {0, 1, 1, 0, 0}};
+        inputT = 1;
+        result = solution.numSubmatrixSumTarget(inputM, inputT);
+        System.out.println("47 == " + result);
+
+        // Test Case 2
+        inputM = new int[81][81];
+        inputT = -12348;
+        for (int i = 0; i < 81; i++) {
+            for (int j = 0; j < 81; j++) {
+                inputM[i][j] = -84;
             }
         }
         result = solution.numSubmatrixSumTarget(inputM, inputT);
-        System.out.println("13394700 == " + result);
+        System.out.println("14364 == " + result);
+
+        // Big Test 1
+        inputM = new int[99][99];
+        inputT = 0;
+//        for (int i = 0; i < 99; i++) {
+//            for (int j = 0; j < 33; j++) {
+//                inputM[i][3 * j] = -1;
+//                inputM[i][3 * j + 1] = 0;
+//                inputM[i][3 * j + 2] = 1;
+//            }
+//        }
+//        result = solution.numSubmatrixSumTarget(inputM, inputT);
+//        System.out.println("13394700 == " + result);
 
         theTime1 = System.currentTimeMillis();
         System.out.println("time == " + (theTime1 - theTime0));
