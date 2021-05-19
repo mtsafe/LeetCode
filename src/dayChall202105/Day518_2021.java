@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-class SolutionDay519 {
+class SolutionDay518 {
     public List<List<String>> findDuplicate(String[] paths) {
         HashMap<String, List<String>> hash = new HashMap<>();
         for (String path : paths) {
@@ -31,9 +31,9 @@ class SolutionDay519 {
     }
 }
 
-public class Day519_2021 {
+public class Day518_2021 {
     public static void main(String[] args) {
-        SolutionDay519 solution = new SolutionDay519();
+        SolutionDay518 solution = new SolutionDay518();
         String[] inputP;
         List<List<String>> result;
 
