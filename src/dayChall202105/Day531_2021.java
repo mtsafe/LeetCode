@@ -63,6 +63,7 @@ class SolutionDay531 {
         }
 
         List<String> matchChar(String s, int first) {
+            return null;
         }
 
         List<String> findStrings(String s) {
