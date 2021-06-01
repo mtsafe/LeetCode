@@ -39,7 +39,7 @@ class SolutionWC243 {
     }
 }
 
-public class WeeklyContest250 {
+public class WeeklyContest243 {
     public static void main(String[] args) {
         SolutionWC243 solution = new SolutionWC243();
         String inputS1, inputS2, inputS3;
